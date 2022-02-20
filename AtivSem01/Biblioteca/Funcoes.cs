@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 
 namespace AtivSem01.Biblioteca
 {
+    /// <summary>
+    /// Classe simples para execucao de operacoes
+    /// e comparacoes basicas com arrays.
+    /// </summary>
     public class Funcoes
     {
         /// <summary>
@@ -13,8 +17,9 @@ namespace AtivSem01.Biblioteca
         /// retorna o somatório de todos os elementos.
         /// </summary>
         /// <returns></returns>
-        public static int SomaMatrizes()
+        public int SomaMatrizes()
         {
+            Console.Clear();
             int x, y;
 
             Console.WriteLine("SOMA DE MATRIZES: ");
@@ -71,8 +76,9 @@ namespace AtivSem01.Biblioteca
         /// verifica qual dos quatro valores é maior.
         /// </summary>
         /// <returns></returns>
-        public static int MaiorEntreQuatro()
+        public int MaiorEntreQuatro()
         {
+            Console.Clear();
             int[] array = new int[4];
             Console.WriteLine("QUAIS DOS QUATRO NUMEROS E O MAIOR?: ");
             for (int i = 0; i < 4; i++)

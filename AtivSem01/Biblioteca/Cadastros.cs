@@ -6,30 +6,40 @@ using System.Threading.Tasks;
 
 namespace AtivSem01.Biblioteca
 {
-    interface IOperacoesBD
+    /// <summary>
+    /// Base de comandos para manipulação de dados.
+    /// </summary>
+    public interface IOperacoesBD
     {
-        void Inserir() { Console.WriteLine("IOperacoesBD.Inserir() executado."); }
-        void Alterar() { Console.WriteLine("IOperacoesBD.Alterar() executado."); }
-        void Deletar() { Console.WriteLine("IOperacoesBD.Deletar() executado."); }
-        void Pesquisar() { Console.WriteLine("IOperacoesBD.Pesquisar() executado."); }
-
+        void Inserir() { }
+        void Alterar() { }
+        void Deletar() { }
+        void Pesquisar() { }
     }
 
-    /// <summary>
-    /// Instancia um cliente, o permitindo fazer pedidos.
-    /// </summary>
     abstract class Cadastros : IOperacoesBD
     {
         protected int Conexao { get; set; }
+        public virtual void Inserir() { Console.WriteLine("Cadastros.Inserir() executado."); }
+        public virtual void Alterar() { Console.WriteLine("Cadastros.Alterar() executado."); }
+        public virtual void Deletar() { Console.WriteLine("Cadastros.Deletar() executado."); }
+        public virtual void Pesquisar() { Console.WriteLine("Cadastros.Pesquisar() executado."); }
     }
 
     sealed class Clientes : Cadastros
     {
-        string Nome { get; set; }
-        string Email { get; set; }
-        string Telefone { get; set; }
-        string Endereco { get; set; }
+        public string Nome { get; set; }
+        public string Email { get; set; }
+        public string Telefone { get; set; }
+        public string Endereco { get; set; }
 
+        public Clientes()
+        {
+            Nome = "Sicrano";
+            Email = null;
+            Telefone = null;
+            Endereco = null;
+        }
         public Clientes(
             int conexao, string nome, 
             string email, string telefone, 
@@ -42,8 +52,11 @@ namespace AtivSem01.Biblioteca
             this.Telefone = telefone;
             this.Endereco = endereco;
         }
-
-        void Deletar()
+        public override void Inserir()
+        {
+            //TODO Sobrecarga Inserir
+        }
+        public override void Deletar()
         {
             base.Deletar();
         }
@@ -52,14 +65,23 @@ namespace AtivSem01.Biblioteca
     sealed class Pedidos : Cadastros
     {
         string Produto { get; set; }
+        public Pedidos()
+        {
+            Conexao = 0;
+            this.Produto = null;
+        }
         public Pedidos(int conexao, string produto)
         {
             this.Conexao = conexao;
             this.Produto = produto;
         }
-        void Inserir()
+        public override void Inserir()
         {
-
+            //TODO: Sobrecarga
+        }
+        public override void Deletar()
+        {
+            base.Deletar();
         }
     }
 }
