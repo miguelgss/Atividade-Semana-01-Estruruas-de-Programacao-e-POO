@@ -58,7 +58,7 @@ namespace AtivSem01
                         clientes.Alterar();
                         break;
                     case 5:
-                        clientes.Deletar();
+                        clientes.Deletar(clientes.Nome, rota);
                         break;
                     case 6:
                         clientes.Pesquisar(rota);
@@ -73,7 +73,17 @@ namespace AtivSem01
                         pedidos.Alterar();
                         break;
                     case 9:
-                        pedidos.Deletar();
+                        string nome;
+                        Console.WriteLine("Qual produto deseja deletar? (Sensivel a maiusculas e minusculas");
+                        try
+                        {
+                            nome = Console.ReadLine();
+                            pedidos.Deletar(nome, rota);
+                        } catch (Exception ex)
+                        {
+                            Console.WriteLine("Dado não inserido corretamente. Por favor tente novamente.");
+                            Console.WriteLine(ex.Message);
+                        }
                         break;
                     case 10:
                         pedidos.Pesquisar(rota);

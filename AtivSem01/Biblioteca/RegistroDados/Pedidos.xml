@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Pedidos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <Produto>Caneta</Produto>
+
   <DataEntrega>2020-05-12T00:00:00</DataEntrega>
 </Pedidos><?xml version="1.0" encoding="utf-8"?>
 <Pedidos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
