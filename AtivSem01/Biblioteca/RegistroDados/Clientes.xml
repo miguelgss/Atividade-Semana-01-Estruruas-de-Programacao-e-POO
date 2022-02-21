@@ -10,4 +10,22 @@
   <Email>fulano@gmail.com</Email>
   <Telefone>123124</Telefone>
   <Endereco>MG003</Endereco>
+</Clientes><?xml version="1.0" encoding="utf-8"?>
+<Clientes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Nome>Bernardo</Nome>
+  <Email>bert@gmail.com</Email>
+  <Telefone>9684165</Telefone>
+  <Endereco>MG1234</Endereco>
+</Clientes><?xml version="1.0" encoding="utf-8"?>
+<Clientes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Nome>Ronaldo</Nome>
+  <Email>ronaldim@gmail.com</Email>
+  <Telefone>98452132</Telefone>
+  <Endereco>SP1230</Endereco>
+</Clientes><?xml version="1.0" encoding="utf-8"?>
+<Clientes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Nome>Pedrim</Nome>
+  <Email>pedrim@hotmail.com</Email>
+  <Telefone>984621</Telefone>
+  <Endereco>BA12309</Endereco>
 </Clientes>

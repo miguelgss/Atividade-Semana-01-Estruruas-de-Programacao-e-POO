@@ -40,12 +40,16 @@ namespace AtivSem01
                         // Encerra o programa.
                         Console.WriteLine("Encerrando...");
                         break;
+
+                    // Comandos matemáticos da classe Funcoes
                     case 1:
                         Console.WriteLine(funcoes.SomaMatrizes());
                         break;
                     case 2:
                         Console.WriteLine(funcoes.MaiorEntreQuatro());
                         break;
+
+                    // Comandos da classe Clientes
                     case 3:
                         clientes = cadastroCliente();
                         clientes.Inserir(rota);
@@ -57,8 +61,10 @@ namespace AtivSem01
                         clientes.Deletar();
                         break;
                     case 6:
-                        clientes.Pesquisar();
+                        clientes.Pesquisar(rota);
                         break;
+
+                    // Comandos da classe Pedidos
                     case 7:
                         pedidos = cadastroPedido();
                         pedidos.Inserir(rota);
@@ -70,7 +76,7 @@ namespace AtivSem01
                         pedidos.Deletar();
                         break;
                     case 10:
-                        pedidos.Pesquisar();
+                        pedidos.Pesquisar(rota);
                         break;
                     case 11:
                         Console.WriteLine("Digite o caminho que deseja salvar os arquivos: ");

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.Xml.Serialization;
-using System.Xml.Linq;
 
 namespace AtivSem01.Biblioteca
 {
@@ -18,7 +17,7 @@ namespace AtivSem01.Biblioteca
 
     public abstract class Cadastros : IOperacoesBD
     {
-        protected int Conexao;
+        protected abstract int Conexao { get; set; }
         public virtual void Inserir() { Console.WriteLine("Cadastros.Inserir() executado."); }
         public virtual void Alterar() { Console.WriteLine("Cadastros.Alterar() executado."); }
         public virtual void Deletar() { Console.WriteLine("Cadastros.Deletar() executado."); }
@@ -30,6 +29,7 @@ namespace AtivSem01.Biblioteca
     /// </summary>
     public sealed class Clientes : Cadastros
     {
+        protected override int Conexao { get; set; }
         public string Nome { get; set; }
         public string Email { get; set; }
         public string Telefone { get; set; }
@@ -38,8 +38,8 @@ namespace AtivSem01.Biblioteca
         // Construtores
         public Clientes()
         {
-            SetConexao(0);
-            Nome = "Sicrano";
+            this.Conexao = 0;
+            Nome = null;
             Email = null;
             Telefone = null;
             Endereco = null;
@@ -75,6 +75,12 @@ namespace AtivSem01.Biblioteca
         /// <param name="rota"></param>
         public void Inserir(string rota)
         {
+            /*
+             * TODO: O serializador não consegue imprimir o valor de Conexao por conta de sua visibilidade.
+             * Isso ainda exige correção, seja trocando o encapsulamento da variável ou por algum outro
+             * método que não seja muito elaborado.
+             */
+
             string rotaAbsoluta = rota + "Clientes" + ".xml";
             XmlSerializer serializer = new XmlSerializer(typeof(Clientes));
             try{
@@ -93,14 +99,38 @@ namespace AtivSem01.Biblioteca
                 }
             } catch (Exception ex)
             {
-                Console.WriteLine("Algo deu errado. Verifique se os dados inseridos estão corretos.");
+                Console.WriteLine("Algo deu errado. Verifique se os dados inseridos estão corretos e tente novamente.");
                 Console.WriteLine(ex.Message);
             }
         }
         public override void Deletar()
         {
             base.Deletar();
-            //TODO Sobrecarga Inserir
+            //TODO Sobrecarga Deletar
+        }
+
+        /// <summary>
+        /// Imprime bruscamente os dados do Clientes.xml, linha por linha.
+        /// </summary>
+        /// <param name="rota"></param>
+        public void Pesquisar(string rota)
+        {
+            Console.Clear();
+            string rotaAbsoluta = rota + "Clientes" + ".xml";
+            XmlSerializer serializer = new XmlSerializer(typeof(Clientes));
+            if (File.Exists(rotaAbsoluta))
+            {
+                string[] readText = File.ReadAllLines(rotaAbsoluta); // Armazena as palavras do arquivo em um vetor String.
+                foreach (string item in readText)
+                {
+                    Console.WriteLine(item);
+                }
+            }
+            else
+            {
+                Console.WriteLine("Não foi encontrado nenhum arquivo. " +
+                    "Mude o path ou crie algum Pedido e tente novamente.");
+            }
         }
     }
 
@@ -109,14 +139,16 @@ namespace AtivSem01.Biblioteca
     /// </summary>
     public sealed class Pedidos : Cadastros
     {
+        protected override int Conexao { get; set; }
         public string Produto { get; set; }
         public DateTime DataEntrega { get; set; }
-        bool EntregaFeita { get; set; }
+        // TODO: bool EntregaFeita { get; set; }
+        // É interessante para verificar se um pedido foi finalizado ou não.
 
         // Construtores
         public Pedidos()
         {
-            SetConexao(0);
+            this.Conexao = 0;
             this.Produto = null;
             this.DataEntrega = DateTime.MinValue;
         }
@@ -145,6 +177,11 @@ namespace AtivSem01.Biblioteca
         /// <param name="rota"></param>
         public void Inserir(string rota)
         {
+            /*
+             * TODO: O serializador não consegue imprimir o valor de Conexao por conta de sua visibilidade.
+             * Isso ainda exige correção, seja trocando o encapsulamento da variável ou por algum outro
+             * método que não seja muito elaborado.
+             */
             string rotaAbsoluta = rota + "Pedidos" + ".xml";
             XmlSerializer serializer = new XmlSerializer(typeof(Pedidos));
             try
@@ -166,14 +203,39 @@ namespace AtivSem01.Biblioteca
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Algo deu errado. Verifique se os dados inseridos estão corretos.");
+                Console.WriteLine("Algo deu errado. Verifique se os dados inseridos estão corretos e tente novamente.");
                 Console.WriteLine(ex.Message);
             }
         }
+
         public override void Deletar()
         {
             base.Deletar();
-            //TODO Sobrecarga Inserir
+            //TODO Sobrecarga Deletar
+        }
+
+        /// <summary>
+        /// Imprime bruscamente os dados do Pedidos.xml, linha por linha.
+        /// </summary>
+        /// <param name="rota"></param>
+        public void Pesquisar(string rota)
+        {
+            Console.Clear();
+            string rotaAbsoluta = rota + "Pedidos" + ".xml";
+            XmlSerializer serializer = new XmlSerializer(typeof(Pedidos));
+            if (File.Exists(rotaAbsoluta))
+            {
+                string[] readText = File.ReadAllLines(rotaAbsoluta); // Armazena as palavras do arquivo em um vetor String.
+                foreach(string item in readText)
+                {
+                    Console.WriteLine(item);
+                }
+            }
+            else
+            {
+                Console.WriteLine("Não foi encontrado nenhum arquivo. " +
+                    "Mude o path ou crie algum Pedido e tente novamente.");
+            }
         }
     }
 }
