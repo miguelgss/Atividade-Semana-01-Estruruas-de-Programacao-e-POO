@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Clientes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Nome>Fulano</Nome>
+  <Email>fulano@gmail.com</Email>
+  <Telefone>1234556</Telefone>
+  <Endereco>MG003</Endereco>
+</Clientes><?xml version="1.0" encoding="utf-8"?>
+<Clientes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Nome>Fulano</Nome>
+  <Email>fulano@gmail.com</Email>
+  <Telefone>123124</Telefone>
+  <Endereco>MG003</Endereco>
+</Clientes>

@@ -1,13 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
+using System.Xml.Serialization;
+using System.Xml.Linq;
 
 namespace AtivSem01.Biblioteca
 {
     /// <summary>
-    /// Base de comandos para manipulação de dados.
+    /// Layout de comandos para manipulação de dados.
     /// </summary>
     public interface IOperacoesBD
     {
@@ -17,24 +16,29 @@ namespace AtivSem01.Biblioteca
         void Pesquisar() { }
     }
 
-    abstract class Cadastros : IOperacoesBD
+    public abstract class Cadastros : IOperacoesBD
     {
-        protected int Conexao { get; set; }
+        protected int Conexao;
         public virtual void Inserir() { Console.WriteLine("Cadastros.Inserir() executado."); }
         public virtual void Alterar() { Console.WriteLine("Cadastros.Alterar() executado."); }
         public virtual void Deletar() { Console.WriteLine("Cadastros.Deletar() executado."); }
         public virtual void Pesquisar() { Console.WriteLine("Cadastros.Pesquisar() executado."); }
     }
 
-    sealed class Clientes : Cadastros
+    /// <summary>
+    /// Classe para manipulação de dados de clientes.
+    /// </summary>
+    public sealed class Clientes : Cadastros
     {
         public string Nome { get; set; }
         public string Email { get; set; }
         public string Telefone { get; set; }
         public string Endereco { get; set; }
 
+        // Construtores
         public Clientes()
         {
+            SetConexao(0);
             Nome = "Sicrano";
             Email = null;
             Telefone = null;
@@ -52,36 +56,124 @@ namespace AtivSem01.Biblioteca
             this.Telefone = telefone;
             this.Endereco = endereco;
         }
-        public override void Inserir()
+
+        // Getter e Setter para conexao ser acessível
+        public void SetConexao(int conexao)
         {
-            //TODO Sobrecarga Inserir
+            this.Conexao = conexao;
+        }
+        public int GetConexao()
+        {
+            return this.Conexao;
+        }
+
+        // Metodos
+
+        /// <summary>
+        /// Serializa um objeto do tipo Clientes em um arquivo XML.
+        /// </summary>
+        /// <param name="rota"></param>
+        public void Inserir(string rota)
+        {
+            string rotaAbsoluta = rota + "Clientes" + ".xml";
+            XmlSerializer serializer = new XmlSerializer(typeof(Clientes));
+            try{
+                if (File.Exists(rotaAbsoluta))
+                {
+                    using(StreamWriter sw = File.AppendText(rotaAbsoluta))
+                    {
+                        serializer.Serialize(sw, this);
+                    }
+                } else
+                {
+                    using(StreamWriter sw = new StreamWriter(rotaAbsoluta))
+                    {
+                        serializer.Serialize(sw, this);
+                    }
+                }
+            } catch (Exception ex)
+            {
+                Console.WriteLine("Algo deu errado. Verifique se os dados inseridos estão corretos.");
+                Console.WriteLine(ex.Message);
+            }
         }
         public override void Deletar()
         {
             base.Deletar();
+            //TODO Sobrecarga Inserir
         }
     }
 
-    sealed class Pedidos : Cadastros
+    /// <summary>
+    /// Classe para manipulação de dados de pedidos.
+    /// </summary>
+    public sealed class Pedidos : Cadastros
     {
-        string Produto { get; set; }
+        public string Produto { get; set; }
+        public DateTime DataEntrega { get; set; }
+        bool EntregaFeita { get; set; }
+
+        // Construtores
         public Pedidos()
         {
-            Conexao = 0;
+            SetConexao(0);
             this.Produto = null;
+            this.DataEntrega = DateTime.MinValue;
         }
-        public Pedidos(int conexao, string produto)
+        public Pedidos(int conexao, string produto, DateTime dataEntrega)
         {
             this.Conexao = conexao;
             this.Produto = produto;
+            this.DataEntrega = dataEntrega;
         }
-        public override void Inserir()
+
+        // Getter e Setter para conexao ser acessível
+        public void SetConexao(int conexao)
         {
-            //TODO: Sobrecarga
+            this.Conexao = conexao;
+        }
+        public int GetConexao()
+        {
+            return this.Conexao;
+        }
+
+        // Metodos
+
+        /// <summary>
+        /// Serializa um objeto do tipo Pedidos em um arquivo XML.
+        /// </summary>
+        /// <param name="rota"></param>
+        public void Inserir(string rota)
+        {
+            string rotaAbsoluta = rota + "Pedidos" + ".xml";
+            XmlSerializer serializer = new XmlSerializer(typeof(Pedidos));
+            try
+            {
+                if (File.Exists(rotaAbsoluta))
+                {
+                    using (StreamWriter sw = File.AppendText(rotaAbsoluta))
+                    {
+                        serializer.Serialize(sw, this);
+                    }
+                }
+                else
+                {
+                    using (StreamWriter sw = new StreamWriter(rotaAbsoluta))
+                    {
+                        serializer.Serialize(sw, this);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Algo deu errado. Verifique se os dados inseridos estão corretos.");
+                Console.WriteLine(ex.Message);
+            }
         }
         public override void Deletar()
         {
             base.Deletar();
+            //TODO Sobrecarga Inserir
         }
     }
 }
