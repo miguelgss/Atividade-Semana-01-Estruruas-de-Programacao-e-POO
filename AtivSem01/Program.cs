@@ -14,6 +14,8 @@ namespace AtivSem01
             Funcoes funcoes = new Funcoes();
             Pedidos pedidos = new Pedidos();
 
+            string nome;
+
             while (opcao != 0)
             {
                 Console.WriteLine
@@ -55,10 +57,20 @@ namespace AtivSem01
                         clientes.Inserir(rota);
                         break;
                     case 4:
-                        clientes.Alterar();
+                        clientes.Alterar(rota);
                         break;
                     case 5:
-                        clientes.Deletar(clientes.Nome, rota);
+                        Console.WriteLine("Qual cliente deseja deletar? (Sensivel a maiusculas e minusculas");
+                        try
+                        {
+                            nome = Console.ReadLine();
+                            clientes.Deletar(nome, rota);
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine("Dado não inserido corretamente. Por favor tente novamente.");
+                            Console.WriteLine(ex.Message);
+                        }
                         break;
                     case 6:
                         clientes.Pesquisar(rota);
@@ -70,10 +82,9 @@ namespace AtivSem01
                         pedidos.Inserir(rota);
                         break;
                     case 8:
-                        pedidos.Alterar();
+                        pedidos.Alterar(rota);
                         break;
                     case 9:
-                        string nome;
                         Console.WriteLine("Qual produto deseja deletar? (Sensivel a maiusculas e minusculas");
                         try
                         {
